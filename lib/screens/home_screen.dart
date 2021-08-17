@@ -1,3 +1,4 @@
+import 'package:duvit/screens/info_screen.dart';
 import 'package:duvit/screens/map_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -97,7 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
       case 1:
         return MapScreen();
       case 0:
-        return MapScreen();
+        return InfoScreen();
 
       default:
         return MapScreen();

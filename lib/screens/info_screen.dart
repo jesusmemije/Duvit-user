@@ -18,12 +18,12 @@ class InfoScreen extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: NetworkImage('https://images.unsplash.com/photo-1517030330234-94c4fb948ebc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1275&q=80'),
+              image: AssetImage('assets/img/background_login.png'),
               fit: BoxFit.cover,
             ),
           ),
           child: Center(
-            child: Text('mrflutter.com',
+            child: Text('',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 30,
