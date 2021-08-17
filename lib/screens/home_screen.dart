@@ -1,13 +1,12 @@
-import 'package:duvit/pages/info_page.dart';
-import 'package:duvit/pages/map_page.dart';
+import 'package:duvit/screens/map_screen.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatefulWidget {
+class HomeScreen extends StatefulWidget {
   @override
-  _HomePageState createState() => _HomePageState();
+  _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomeScreenState extends State<HomeScreen> {
 
   int currentIndex = 0;
   final globalKey = GlobalKey<ScaffoldState>();
@@ -96,12 +95,12 @@ class _HomePageState extends State<HomePage> {
   Widget _callPage(int paginaActual) {
     switch (paginaActual) {
       case 1:
-        return MapPage();
+        return MapScreen();
       case 0:
-        return MapPage();
+        return MapScreen();
 
       default:
-        return MapPage();
+        return MapScreen();
     }
   }
 

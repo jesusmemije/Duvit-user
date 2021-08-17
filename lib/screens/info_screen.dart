@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class InfoPage extends StatelessWidget {
+class InfoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {

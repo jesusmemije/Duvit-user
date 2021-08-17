@@ -3,12 +3,12 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class MapPage extends StatefulWidget {
+class MapScreen extends StatefulWidget {
   @override
-  _MapPageState createState() => _MapPageState();
+  _MapScreenState createState() => _MapScreenState();
 }
 
-class _MapPageState extends State<MapPage> {
+class _MapScreenState extends State<MapScreen> {
   Completer<GoogleMapController> _controller = Completer();
 
   MapType mapType = MapType.normal;

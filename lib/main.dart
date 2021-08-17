@@ -1,8 +1,5 @@
-import 'package:duvit/pages/home_page.dart';
-import 'package:duvit/pages/info_page.dart';
-import 'package:duvit/pages/login_page.dart';
-import 'package:duvit/pages/map_page.dart';
 import 'package:flutter/material.dart';
+import 'package:duvit/screens/screens.dart';
 
 void main() => runApp(DuvitApp());
 
@@ -13,10 +10,10 @@ class DuvitApp extends StatelessWidget {
       initialRoute: '/login',
       debugShowCheckedModeBanner: false,
       routes: {
-        '/home': (context) => HomePage(),
-        '/login': (context) => LoginPage(),
-        '/map': (context) => MapPage(),
-        '/info': (context) => InfoPage(),
+        '/home' : ( _ ) => HomeScreen(),
+        '/login': ( _ ) => LoginScreen(),
+        '/map'  : ( _ ) => MapScreen(),
+        '/info' : ( _ ) => InfoScreen(),
       },
     );
   }
