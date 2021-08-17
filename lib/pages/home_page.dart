@@ -1,129 +1,186 @@
+import 'package:duvit/pages/info_page.dart';
+import 'package:duvit/pages/map_page.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+
+  int currentIndex = 0;
+  final globalKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: Drawer(
-        child: Column(
-          children: <Widget>[
-            UserAccountsDrawerHeader(
-              currentAccountPicture: CircleAvatar(
-                backgroundColor: Colors.white,
-                child: Icon(Icons.person,size: 50.0,),
-              ),
-              accountName: Text('User Name'),
-              accountEmail: Text('examlpe@gmail.com'),
-            ),
-            ListTile(
-              leading: CircleAvatar(
-                child: Icon(Icons.person_outline,
-                color: Colors.white,
-                size: 30.0,
-                ),
-              ),
-              title: Text("Profile Settings"),
-              onTap: (){
+    return Container(
+      child: Scaffold(
+        key: globalKey,
+        drawer: _crearDrawer(),
+        drawerEnableOpenDragGesture: false,
+        body: _callPage(currentIndex),
+        bottomNavigationBar: _crearBottomNavigationBar( context ),
+        floatingActionButton: _crearFloatingButton(),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      ),
+    );
+  }
 
-              },
-            ),
-            ListTile(
-              leading: CircleAvatar(
-                child: Icon(Icons.settings,
-                color: Colors.white,
-                size: 30.0,
-                ),
-              ),
-              title: Text("Settings"),
-              onTap: (){
-
-              },
-            ),
-            Divider(),
-            ListTile(
-              leading: CircleAvatar(
-                child: Icon(Icons.help_outline,
-                color: Colors.white,
-                size: 30.0,
-                ),
-              ),
-              title: Text("About us"),
-              onTap: (){
-              },
-            ),
-            ListTile(
-              leading: CircleAvatar(
-                child: Icon(Icons.cached,
-                color: Colors.white,
-                size: 30.0,
-                ),
-              ),
-              title: Text("Recenceter"),
-              onTap: (){
-                Navigator.pushNamed(context, '/login');
-              },
-            ),
-            ListTile(
-              leading: CircleAvatar(
-                child: Icon(Icons.exit_to_app,
-                color: Colors.white,
-                size: 30.0,
-                ),
-              ),
-              title: Text("Logout"),
-            ),
+  Widget _crearBottomNavigationBar( BuildContext context ) {
+    return BottomAppBar( //bottom navigation bar on scaffold
+      shape: CircularNotchedRectangle(), //shape of notch
+      notchMargin: 8, //notche margin between floating button and bottom appbar
+      child: Container(
+        height: 56,
+        child: Row( //children inside bottom appbar
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            IconButton(icon: Icon(Icons.menu), onPressed: () {
+              
+              //return Scaffold.of(context).openDrawer();
+              return globalKey.currentState!.openDrawer();
+      
+            },),
+            IconButton(icon: Icon(Icons.verified_user), onPressed: () {
+              setState(() {
+                currentIndex = 1;
+              });
+            },),
+            SizedBox(width: 40),
+            IconButton(icon: Icon(Icons.notifications), onPressed: () {
+              setState(() {
+                currentIndex = 1;
+              });
+            },),
+            IconButton(icon: Icon(Icons.settings), onPressed: () {
+              setState(() {
+                currentIndex = 1;
+              });
+            },),
           ],
         ),
       ),
+    );
+    /*return BottomNavigationBar(
+      elevation: 8.0,
+      type: BottomNavigationBarType.fixed,
+      currentIndex: currentIndex,
+      onTap: (index) {
+        setState(() {
+          currentIndex = index;
+        });
+      },
+      items: [
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home_work), 
+          label: 'Home'
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.assignment_turned_in), 
+          label: 'Asistencia'
+        )
+      ],
+    );*/
+  }
 
-      appBar: AppBar(
-        title: Text("Home Page"),
-        centerTitle: true,
-      ),
+  Widget _crearFloatingButton() {
+    return FloatingActionButton(
+        elevation: 8.0,
+        child: new Icon(Icons.task),
+        onPressed: (){}
+      );
+  }
 
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Color(0xff6bceff),
-        onPressed: () { 
-        },
-        child: Icon(Icons.add,color:Colors.white),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home,color: Color(0xff6bceff),),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.history),
-            label: 'Historique',
-          ),
-        ],
-      ),
-      body: ListView(
+  Widget _callPage(int paginaActual) {
+    switch (paginaActual) {
+      case 1:
+        return MapPage();
+      case 0:
+        return MapPage();
+
+      default:
+        return MapPage();
+    }
+  }
+
+  Widget _crearDrawer() {
+    return Drawer(
+      child: Column(
         children: <Widget>[
-          SizedBox(
-            height: 50,
-          ),
-          Container(
-            decoration: BoxDecoration(
-              borderRadius:  BorderRadius.all(Radius.circular(50)),
+          UserAccountsDrawerHeader(
+            currentAccountPicture: CircleAvatar(
+              backgroundColor: Colors.white,
+              child: Icon(
+                Icons.person,
+                size: 50.0,
+              ),
             ),
-            child: ListTile(
-              leading: Icon(Icons.event_available),
-              title: Text("Acheter un Cadeau"),
-              trailing: Text("-200",style: TextStyle(color: Colors.red),),
-              subtitle: Text("Acheter un Cadeau pour l'anniversaire de mon amis"),
-            ),
+            accountName: Text('User Name'),
+            accountEmail: Text('examlpe@gmail.com'),
           ),
           ListTile(
-            leading: Icon(Icons.event_available),
-            title: Text("La bourse"),
-            trailing: Text("+400",style: TextStyle(color: Colors.green),),
-            subtitle: Text("La bourse de December..."),
+            leading: CircleAvatar(
+              child: Icon(
+                Icons.person_outline,
+                color: Colors.white,
+                size: 30.0,
+              ),
+            ),
+            title: Text("Profile Settings"),
+            onTap: () {},
+          ),
+          ListTile(
+            leading: CircleAvatar(
+              child: Icon(
+                Icons.settings,
+                color: Colors.white,
+                size: 30.0,
+              ),
+            ),
+            title: Text("Settings"),
+            onTap: () {},
+          ),
+          Divider(),
+          ListTile(
+            leading: CircleAvatar(
+              child: Icon(
+                Icons.help_outline,
+                color: Colors.white,
+                size: 30.0,
+              ),
+            ),
+            title: Text("About us"),
+            onTap: () {},
+          ),
+          ListTile(
+            leading: CircleAvatar(
+              child: Icon(
+                Icons.cached,
+                color: Colors.white,
+                size: 30.0,
+              ),
+            ),
+            title: Text("Recenceter"),
+            onTap: () {
+              Navigator.pushNamed(context, '/login');
+            },
+          ),
+          ListTile(
+            leading: CircleAvatar(
+              child: Icon(
+                Icons.exit_to_app,
+                color: Colors.white,
+                size: 30.0,
+              ),
+            ),
+            title: Text("Logout"),
           ),
         ],
       ),
     );
   }
+
+  
 }

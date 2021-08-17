@@ -11,7 +11,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle(
-        statusBarColor: Colors.blue,
+        statusBarColor: Colors.transparent,
       ),
       child: Scaffold(
         body: Container(
@@ -149,7 +149,7 @@ class _LoginPageState extends State<LoginPage> {
     
                     InkWell(
                         onTap: (){
-                          Navigator.pushNamed(context, '/');
+                          Navigator.pushNamedAndRemoveUntil(context, '/home', ModalRoute.withName('/home'));
                         },
                         child: Container(
                         height: 45,
