@@ -30,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _crearBottomNavigationBar( BuildContext context ) {
     return BottomAppBar( //bottom navigation bar on scaffold
       shape: CircularNotchedRectangle(), //shape of notch
-      notchMargin: 8, //notche margin between floating button and bottom appbar
+      notchMargin: 6, //notche margin between floating button and bottom appbar
       child: Container(
         height: 56,
         child: Row( //children inside bottom appbar
@@ -43,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
               return globalKey.currentState!.openDrawer();
       
             },),
-            IconButton(icon: Icon(Icons.verified_user), onPressed: () {
+            IconButton(icon: Icon(Icons.add_location_alt), onPressed: () {
               setState(() {
                 currentIndex = 1;
               });
@@ -51,12 +51,12 @@ class _HomeScreenState extends State<HomeScreen> {
             SizedBox(width: 40),
             IconButton(icon: Icon(Icons.notifications), onPressed: () {
               setState(() {
-                currentIndex = 1;
+                currentIndex = 2;
               });
             },),
             IconButton(icon: Icon(Icons.settings), onPressed: () {
               setState(() {
-                currentIndex = 1;
+                currentIndex = 3;
               });
             },),
           ],
@@ -95,9 +95,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _callPage(int paginaActual) {
     switch (paginaActual) {
+      case 0:
+        return MapScreen();
       case 1:
         return MapScreen();
-      case 0:
+      case 2:
+        return InfoScreen();
+      case 3:
         return InfoScreen();
 
       default:

@@ -180,14 +180,14 @@ class _LoginScreenState extends State<LoginScreen> {
     form!.save();
 
     if ( _username.isEmpty || _password.isEmpty ) {
-      showMessage( 'El usuario y contraseña requeridos' );
+      showMessage( 'El usuario y la contraseña son requeridos' );
     } else {
 
       showMessage( 'Espere mientras validamos sus datos ...' );
 
       Map response = await loginProvider.loginValidate(_username, _password);
 
-      await Future.delayed(Duration(seconds: 2));
+      //await Future.delayed(Duration(seconds: 2));
 
       if ( response['code'] == '201' ) {
 
