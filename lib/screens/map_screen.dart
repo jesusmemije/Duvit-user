@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:duvit/shared_prefs/preferencias_usuario.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -9,16 +10,29 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
+  
   Completer<GoogleMapController> _controller = Completer();
 
   MapType mapType = MapType.normal;
 
   @override
   Widget build(BuildContext context) {
-    LatLng latLng = new LatLng(20.689742, -103.3928097);
+
+    final prefs = new PreferenciasUsuario();
+    LatLng latLng;
+
+    if ( prefs.lat != 0.0 || prefs.long != 0.0 ) {
+      print('Se metieron a la preferencias');
+      latLng = new LatLng(prefs.lat, prefs.long);
+    } else {
+      print('Se metieron a las coordenadas por default');
+      latLng = new LatLng(20.689742, -103.3928097);
+    }
+
+    print(latLng);
 
     final CameraPosition puntoInicial =
-        CameraPosition(target: latLng, zoom: 17.5, tilt: 50);
+        CameraPosition(target: latLng, zoom: 18, tilt: 50);
 
     //Marcadores
     Set<Marker> markers = Set<Marker>();
@@ -96,7 +110,7 @@ class _MapScreenState extends State<MapScreen> {
                     final GoogleMapController controller =
                         await _controller.future;
                     controller.animateCamera(CameraUpdate.newCameraPosition(
-                        CameraPosition(target: latLng, zoom: 17.5, tilt: 50)));
+                        CameraPosition(target: latLng, zoom: 18, tilt: 50)));
                   }),
             ]),
           ),

@@ -1,4 +1,5 @@
 import 'package:duvit/providers/login_provider.dart';
+import 'package:duvit/shared_prefs/preferencias_usuario.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -8,6 +9,9 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+
+  //Instance the shared preferences
+  final prefs = new PreferenciasUsuario();
 
   //Global Keys
   final formKey     = new GlobalKey<FormState>();
@@ -191,17 +195,21 @@ class _LoginScreenState extends State<LoginScreen> {
 
       if ( response['code'] == '201' ) {
 
-        var name        = response['name'];
-        var email       = response['email'];
-        var idUser      = response['idUser'];
-        var idStaff     = response['idStaff'];
-        var idGender    = response['idGender'];
-        var lat         = response['lat'];
-        var long        = response['long'];
-        var validateGPS = response['validateGPS'];
-
-        if ( validateGPS == "1" ) {
-          if ( lat.toString().isEmpty || long.toString().isEmpty ) {
+        prefs.logeado     = true;
+        prefs.name        = response['name'].toString();
+        prefs.email       = response['email'].toString();
+        prefs.idUser      = response['idUser'];
+        prefs.idStaff     = response['idStaff'];
+        prefs.idCompany   = response['idCompany'];
+        prefs.idGender    = response['idGender'];
+        prefs.lat         = response['lat'];
+        prefs.long        = response['long'];
+        prefs.token       = response['token'];
+        prefs.validateGPS = int.parse(response['validateGPS']);
+        prefs.active      = int.parse(response['active']);
+      
+        if ( response['validateGPS'] == "1" ) {
+          if ( response['lat'].toString().isEmpty || response['long'].toString().isEmpty ) {
             showMessage( 'No se ha registrado ubicación de trabajo' );
           } else {
             Navigator.pushNamedAndRemoveUntil(context, '/home', ModalRoute.withName('/home'));

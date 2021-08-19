@@ -1,14 +1,26 @@
+import 'package:duvit/shared_prefs/preferencias_usuario.dart';
 import 'package:flutter/material.dart';
 import 'package:duvit/screens/screens.dart';
 
-void main() =>runApp(DuvitApp());
+void main() async{
+
+  WidgetsFlutterBinding.ensureInitialized();
+  final prefs = new PreferenciasUsuario();
+  await prefs.initPrefs();
+
+  runApp(DuvitApp());
+
+}
 
 class DuvitApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    final prefs = new PreferenciasUsuario();
+    var logeado = prefs.logeado;
+
     return MaterialApp(
-      initialRoute: '/login',
+      initialRoute: logeado == false ? '/login' : '/home',
       debugShowCheckedModeBanner: false,
       routes: {
         '/home' : ( _ ) => HomeScreen(),

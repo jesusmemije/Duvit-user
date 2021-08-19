@@ -1,6 +1,8 @@
 import 'package:duvit/screens/info_screen.dart';
 import 'package:duvit/screens/map_screen.dart';
+import 'package:duvit/shared_prefs/preferencias_usuario.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -9,12 +11,18 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
 
+  //Instance the shared preferences
+  final prefs = new PreferenciasUsuario();
+
   int currentIndex = 0;
   final globalKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+      ),
       child: Scaffold(
         key: globalKey,
         drawer: _crearDrawer(),
@@ -121,8 +129,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 size: 50.0,
               ),
             ),
-            accountName: Text('User Name'),
-            accountEmail: Text('examlpe@gmail.com'),
+            accountName: Text( prefs.name ),
+            accountEmail: Text( prefs.email.isNotEmpty ? prefs.email : 'Sin correo corporativo' ),
           ),
           ListTile(
             leading: CircleAvatar(
@@ -138,13 +146,12 @@ class _HomeScreenState extends State<HomeScreen> {
           ListTile(
             leading: CircleAvatar(
               child: Icon(
-                Icons.settings,
+                Icons.cached,
                 color: Colors.white,
                 size: 30.0,
               ),
             ),
-            title: Text("Settings"),
-            onTap: () {},
+            title: Text("Recenceter"),
           ),
           Divider(),
           ListTile(
@@ -155,21 +162,19 @@ class _HomeScreenState extends State<HomeScreen> {
                 size: 30.0,
               ),
             ),
-            title: Text("About us"),
+            title: Text("Acerca de nosotros"),
             onTap: () {},
           ),
           ListTile(
             leading: CircleAvatar(
               child: Icon(
-                Icons.cached,
+                Icons.settings,
                 color: Colors.white,
                 size: 30.0,
               ),
             ),
-            title: Text("Recenceter"),
-            onTap: () {
-              Navigator.pushNamed(context, '/login');
-            },
+            title: Text("Configuración"),
+            onTap: () {},
           ),
           ListTile(
             leading: CircleAvatar(
@@ -179,7 +184,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 size: 30.0,
               ),
             ),
-            title: Text("Logout"),
+            title: Text("Cerrar sesión"),
+            onTap: () {
+              prefs.clear();
+              Navigator.pushNamedAndRemoveUntil(context, '/login', ModalRoute.withName('/login'));
+            },
           ),
         ],
       ),
