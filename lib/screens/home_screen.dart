@@ -29,35 +29,36 @@ class _HomeScreenState extends State<HomeScreen> {
         drawerEnableOpenDragGesture: false,
         body: _callPage(currentIndex),
         bottomNavigationBar: _crearBottomNavigationBar( context ),
-        floatingActionButton: _crearFloatingButton(),
+        floatingActionButton: FloatingActionButton(
+          elevation: 8.0,
+          child: new Icon(Icons.task),
+          onPressed: (){}
+        ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       ),
     );
   }
 
   Widget _crearBottomNavigationBar( BuildContext context ) {
-    return BottomAppBar( //bottom navigation bar on scaffold
-      shape: CircularNotchedRectangle(), //shape of notch
-      notchMargin: 6, //notche margin between floating button and bottom appbar
+    return BottomAppBar(
+      shape: CircularNotchedRectangle(),
+      notchMargin: 6,
       child: Container(
         height: 56,
-        child: Row( //children inside bottom appbar
+        child: Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             IconButton(icon: Icon(Icons.menu), onPressed: () {
-              
-              //return Scaffold.of(context).openDrawer();
               return globalKey.currentState!.openDrawer();
-      
-            },),
+            }),
             IconButton(icon: Icon(Icons.add_location_alt), onPressed: () {
               setState(() {
                 currentIndex = 1;
               });
             },),
             SizedBox(width: 40),
-            IconButton(icon: Icon(Icons.notifications), onPressed: () {
+            IconButton(icon: Icon(Icons.assistant), onPressed: () {
               setState(() {
                 currentIndex = 2;
               });
@@ -71,40 +72,10 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
-    /*return BottomNavigationBar(
-      elevation: 8.0,
-      type: BottomNavigationBarType.fixed,
-      currentIndex: currentIndex,
-      onTap: (index) {
-        setState(() {
-          currentIndex = index;
-        });
-      },
-      items: [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home_work), 
-          label: 'Home'
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.assignment_turned_in), 
-          label: 'Asistencia'
-        )
-      ],
-    );*/
-  }
-
-  Widget _crearFloatingButton() {
-    return FloatingActionButton(
-        elevation: 8.0,
-        child: new Icon(Icons.task),
-        onPressed: (){}
-      );
   }
 
   Widget _callPage(int paginaActual) {
     switch (paginaActual) {
-      case 0:
-        return MapScreen();
       case 1:
         return MapScreen();
       case 2:

@@ -5,13 +5,6 @@ class InfoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // we won't use appBar here
-      // appBar: AppBar(
-      //   title: Text("Full screen page"),
-      //   backgroundColor: Colors.purple,
-      // ),
-      // might need to set this flag, 
-      //resizeToAvoidBottomInset: false,
       body: SafeArea(
         bottom: false,
         top: false,
