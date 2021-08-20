@@ -1,6 +1,7 @@
 import 'package:duvit/screens/info_screen.dart';
 import 'package:duvit/screens/map_screen.dart';
-import 'package:duvit/shared_prefs/preferencias_usuario.dart';
+import 'package:duvit/screens/screens.dart';
+import 'package:duvit/shared_prefs/user_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -52,18 +53,18 @@ class _HomeScreenState extends State<HomeScreen> {
             IconButton(icon: Icon(Icons.menu), onPressed: () {
               return globalKey.currentState!.openDrawer();
             }),
-            IconButton(icon: Icon(Icons.add_location_alt), onPressed: () {
+            IconButton(icon: Icon(Icons.add_location_alt), color: currentIndex == 1 ? Theme.of(context).primaryColor : Colors.black, onPressed: () {
               setState(() {
                 currentIndex = 1;
               });
             },),
             SizedBox(width: 40),
-            IconButton(icon: Icon(Icons.assistant), onPressed: () {
+            IconButton(icon: Icon(Icons.assistant), color: currentIndex == 2 ? Theme.of(context).primaryColor : Colors.black, onPressed: () {
               setState(() {
                 currentIndex = 2;
               });
             },),
-            IconButton(icon: Icon(Icons.settings), onPressed: () {
+            IconButton(icon: Icon(Icons.settings), color: currentIndex == 3 ? Theme.of(context).primaryColor : Colors.black, onPressed: () {
               setState(() {
                 currentIndex = 3;
               });
@@ -79,7 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
       case 1:
         return MapScreen();
       case 2:
-        return InfoScreen();
+        return TasksScreen();
       case 3:
         return InfoScreen();
 

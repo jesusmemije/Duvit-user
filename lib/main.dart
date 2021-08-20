@@ -1,4 +1,4 @@
-import 'package:duvit/shared_prefs/preferencias_usuario.dart';
+import 'package:duvit/shared_prefs/user_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:duvit/screens/screens.dart';
 
@@ -23,11 +23,15 @@ class DuvitApp extends StatelessWidget {
       initialRoute: logeado == false ? '/login' : '/home',
       debugShowCheckedModeBanner: false,
       routes: {
-        '/home' : ( _ ) => HomeScreen(),
-        '/login': ( _ ) => LoginScreen(),
-        '/map'  : ( _ ) => MapScreen(),
-        '/info' : ( _ ) => InfoScreen(),
+        '/home'  : ( _ ) => HomeScreen(),
+        '/login' : ( _ ) => LoginScreen(),
+        '/map'   : ( _ ) => MapScreen(),
+        '/tasks' : ( _ ) => TasksScreen(),
+        '/info'  : ( _ ) => InfoScreen(),
       },
+      theme: ThemeData(
+        primarySwatch: Colors.purple,
+      ),
     );
   }
 }

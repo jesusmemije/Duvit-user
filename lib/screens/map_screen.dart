@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:duvit/shared_prefs/preferencias_usuario.dart';
+import 'package:duvit/shared_prefs/user_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
