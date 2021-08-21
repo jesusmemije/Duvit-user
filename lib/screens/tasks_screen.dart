@@ -1,5 +1,6 @@
 import 'package:duvit/models/task_model.dart';
 import 'package:duvit/providers/tasks_provider.dart';
+import 'package:duvit/shared_prefs/user_preferences.dart';
 import 'package:expansion_tile_card/expansion_tile_card.dart';
 import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
@@ -20,6 +21,8 @@ class _TasksScreenState extends State<TasksScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final prefs = new PreferenciasUsuario();
+
     return Scaffold(
       appBar: AppBar(
           centerTitle: true,
@@ -27,20 +30,36 @@ class _TasksScreenState extends State<TasksScreen> {
           elevation: 2.0,
           backgroundColor: Colors.white),
       body: FutureBuilder(
-          future: tasksProvider.getTasks(45),
+          future: tasksProvider.getTasks(prefs.idStaff),
           builder:
               (BuildContext context, AsyncSnapshot<List<TaskModel>> snapshot) {
             if (snapshot.hasData) {
               final tasks = snapshot.data;
 
-              return Padding(
-                padding: EdgeInsets.only(top: 0.0, bottom: 0.0),
-                child: ListView.builder(
-                  itemCount: tasks!.length,
-                  itemBuilder: (context, index) =>
-                      _crearItem(context, tasks[index], index),
-                ),
-              );
+              if (tasks!.isNotEmpty) {
+                return Padding(
+                  padding: EdgeInsets.only(top: 0.0, bottom: 0.0),
+                  child: ListView.builder(
+                    itemCount: tasks!.length,
+                    itemBuilder: (context, index) =>
+                        _crearItem(context, tasks[index], index),
+                  ),
+                );
+              } else {
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.done, size: 40.0),
+                        SizedBox(height: 8.0),
+                        Text('No cuenta con tareas pendientes'),
+                      ],
+                    ),
+                  ],
+                );
+              }
             } else {
               return Center(child: CircularProgressIndicator());
             }
@@ -106,21 +125,21 @@ class _TasksScreenState extends State<TasksScreen> {
             children: <Widget>[
               TextButton(
                 style: flatButtonStyle,
-                onPressed: task.idProyecto != 1 ? null : () {
-
-                  final response = tasksProvider.checkTask(task.idPlaneacion, 0);
+                //onPressed: task.idProyecto != 1 ? null : () {
+                onPressed: () {
+                  final response =
+                      tasksProvider.checkTask(task.idPlaneacion, 0);
                   response.then((value) async {
-                    if( value ){
+                    if (value) {
                       showMessage("Se ha registrado el inicio de la tarea");
                     } else {
-                      showMessage("Hemos tenido un problema al registrar el inicio");
+                      showMessage(
+                          "Hemos tenido un problema al registrar el inicio");
                     }
 
                     //await Future.delayed(Duration(seconds: 3));
-                    setState(() { });
-
+                    setState(() {});
                   });
-
                 },
                 child: Column(
                   children: <Widget>[
@@ -131,25 +150,23 @@ class _TasksScreenState extends State<TasksScreen> {
                     Text('Iniciar'),
                   ],
                 ),
-
               ),
               TextButton(
                 style: flatButtonStyle,
                 onPressed: () {
-
-                  final response = tasksProvider.checkTask(task.idPlaneacion, 1);
-                  response.then((value) async{
-                    if( value ){
+                  final response =
+                      tasksProvider.checkTask(task.idPlaneacion, 1);
+                  response.then((value) async {
+                    if (value) {
                       showMessage("Se ha registrado la pausa de la tarea");
                     } else {
-                      showMessage("Hemos tenido un problema al registrar la pausa");
+                      showMessage(
+                          "Hemos tenido un problema al registrar la pausa");
                     }
 
                     //await Future.delayed(Duration(seconds: 3));
-                    setState(() { });
-
+                    setState(() {});
                   });
-
                 },
                 child: Column(
                   children: <Widget>[
@@ -164,20 +181,20 @@ class _TasksScreenState extends State<TasksScreen> {
               TextButton(
                 style: flatButtonStyle,
                 onPressed: () {
-                  
-                  final response = tasksProvider.checkTask(task.idPlaneacion, 2);
-                  response.then((value) async{
-                    if( value ){
-                      showMessage("Se ha registrado la finalización de la tarea");
+                  final response =
+                      tasksProvider.checkTask(task.idPlaneacion, 2);
+                  response.then((value) async {
+                    if (value) {
+                      showMessage(
+                          "Se ha registrado la finalización de la tarea");
                     } else {
-                      showMessage("Hemos tenido un problema al registrar la finalización");
+                      showMessage(
+                          "Hemos tenido un problema al registrar la finalización");
                     }
 
                     //await Future.delayed(Duration(seconds: 3));
-                    setState(() { });
-
+                    setState(() {});
                   });
-
                 },
                 child: Column(
                   children: <Widget>[
@@ -196,21 +213,15 @@ class _TasksScreenState extends State<TasksScreen> {
     );
   }
 
-  void start() async {
-
-  }
+  void start() async {}
 
   void showMessage(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(
-          message,
-          textAlign: TextAlign.center,
-          style: TextStyle( fontSize: 15 )
-        ),
+        content: Text(message,
+            textAlign: TextAlign.center, style: TextStyle(fontSize: 15)),
         duration: Duration(seconds: 3),
       ),
     );
   }
-
 }
