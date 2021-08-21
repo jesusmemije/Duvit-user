@@ -40,7 +40,7 @@ class _TasksScreenState extends State<TasksScreen> {
                 return Padding(
                   padding: EdgeInsets.only(top: 0.0, bottom: 0.0),
                   child: ListView.builder(
-                    itemCount: tasks!.length,
+                    itemCount: tasks.length,
                     itemBuilder: (context, index) =>
                         _crearItem(context, tasks[index], index),
                   ),
