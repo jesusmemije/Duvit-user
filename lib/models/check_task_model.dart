@@ -6,13 +6,13 @@ String checkTaskModelToJson(CheckTaskModel data) => json.encode(data.toJson());
 
 class CheckTaskModel {
   CheckTaskModel({
-    required this.id,
+    this.id,
     required this.idPlaneacion,
     required this.idUser,
     required this.status,
   });
 
-  int id;
+  int? id;
   int idPlaneacion;
   int idUser;
   String status;

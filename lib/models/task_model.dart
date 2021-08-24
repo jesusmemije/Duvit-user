@@ -15,6 +15,7 @@ class TaskModel {
     this.idProyecto       = 0,
     this.proyecto         = "",
     this.statusPlaneacion = "",
+    this.statusSeguimientoUser = "",
     this.fechaInicio      = "",
     this.fechaFin         = "",
     this.fechaLimite      = ""
@@ -29,6 +30,7 @@ class TaskModel {
   int idProyecto;
   String proyecto;
   String statusPlaneacion;
+  String statusSeguimientoUser;
   String fechaInicio;
   String fechaFin;
   String fechaLimite;
@@ -42,6 +44,7 @@ class TaskModel {
         idProyecto       : json["idProyecto"],
         proyecto         : json["proyecto"],
         statusPlaneacion : json["statusPlaneacion"],
+        statusSeguimientoUser : json["statusSeguimientoUser"],
         fechaInicio      : json["fechaInicio"],
         fechaFin         : json["fechaFin"],
         fechaLimite      : json["fechaLimite"],
@@ -56,6 +59,7 @@ class TaskModel {
         "idProyecto"       : idProyecto,
         "proyecto"         : proyecto,
         "statusPlaneacion" : statusPlaneacion,
+        "statusSeguimientoUser" : statusSeguimientoUser,
         "fechaInicio"      : fechaInicio,
         "fechaFin"         : fechaFin,
         "fechaLimite"      : fechaLimite,

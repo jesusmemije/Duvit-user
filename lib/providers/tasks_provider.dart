@@ -6,9 +6,29 @@ class TasksProvider {
 
   final String _url = "http://www.duvitapp.com/WebService/v2";
 
-  Future<List<TaskModel>> getTasks( int idStaff ) async {
+  Future<List<TaskModel>> getTasks( int idStaff, String statusFollowUser) async {
 
-    final url = '$_url/tasks.php?idStaff=$idStaff';
+    final url = '$_url/tasks.php?idStaff=$idStaff&status=$statusFollowUser';
+    final resp = await http.get( Uri.parse(url) );
+
+    final Map<String, dynamic> decodedData = json.decode(resp.body);
+    final List<TaskModel> listTask = [];
+
+    decodedData.forEach((id, task) {
+
+      final taskTemp = TaskModel.fromJson(task);
+
+      listTask.add( taskTemp );
+
+    });
+
+    return listTask;
+
+  }
+
+  Future<List<TaskModel>> getTasksEnd( int idStaff) async {
+
+    final url = '$_url/tasks.php?idStaff=$idStaff&type=tasks_end';
     final resp = await http.get( Uri.parse(url) );
 
     final Map<String, dynamic> decodedData = json.decode(resp.body);
