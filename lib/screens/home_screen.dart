@@ -3,7 +3,6 @@ import 'package:duvit/screens/map_screen.dart';
 import 'package:duvit/screens/screens.dart';
 import 'package:duvit/shared_prefs/user_preferences.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
