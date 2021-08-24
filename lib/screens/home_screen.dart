@@ -15,28 +15,24 @@ class _HomeScreenState extends State<HomeScreen> {
   //Instance the shared preferences
   final prefs = new PreferenciasUsuario();
 
-  int currentIndex = 0;
+  int currentIndex = 1;
   final globalKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
-    return AnnotatedRegion(
-      value: SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
+
+    return Scaffold(
+      key: globalKey,
+      drawer: _crearDrawer(),
+      drawerEnableOpenDragGesture: false,
+      body: _callPage(currentIndex),
+      bottomNavigationBar: _crearBottomNavigationBar( context ),
+      floatingActionButton: FloatingActionButton(
+        elevation: 8.0,
+        child: new Icon(Icons.task),
+        onPressed: (){}
       ),
-      child: Scaffold(
-        key: globalKey,
-        drawer: _crearDrawer(),
-        drawerEnableOpenDragGesture: false,
-        body: _callPage(currentIndex),
-        bottomNavigationBar: _crearBottomNavigationBar( context ),
-        floatingActionButton: FloatingActionButton(
-          elevation: 8.0,
-          child: new Icon(Icons.task),
-          onPressed: (){}
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 

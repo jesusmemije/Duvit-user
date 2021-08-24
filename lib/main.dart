@@ -2,13 +2,18 @@ import 'package:duvit/screens/tasks_history_screen.dart';
 import 'package:duvit/shared_prefs/user_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:duvit/screens/screens.dart';
+import 'package:flutter/services.dart';
 
 void main() async{
+
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent
+  ));
 
   WidgetsFlutterBinding.ensureInitialized();
   final prefs = new PreferenciasUsuario();
   await prefs.initPrefs();
-
+  
   runApp(DuvitApp());
 
 }

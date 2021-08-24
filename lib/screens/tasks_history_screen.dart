@@ -28,7 +28,7 @@ class TasksHistoryScreen extends StatelessWidget {
         if (snapshot.hasData) {
           if ( tasks!.isNotEmpty ) {
             return Padding(
-              padding: EdgeInsets.only(top: 8.0),
+              padding: EdgeInsets.only(top: 5.0, bottom: 5.0),
               child: ListView.builder(
                 itemCount: tasks.length,
                 itemBuilder: (context, i) => _crearItem( tasks[i] ),
