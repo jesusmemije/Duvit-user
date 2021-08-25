@@ -1,3 +1,4 @@
+import 'package:duvit/screens/projects_screen.dart';
 import 'package:duvit/screens/tasks_history_screen.dart';
 import 'package:duvit/shared_prefs/user_preferences.dart';
 import 'package:flutter/material.dart';
@@ -34,6 +35,7 @@ class DuvitApp extends StatelessWidget {
         '/map'           : ( _ ) => MapScreen(),
         '/tasks'         : ( _ ) => TasksScreen(),
         '/tasks_history' : ( _ ) => TasksHistoryScreen(),
+        '/projects'      : ( _ ) => ProjectsScreen(),
         '/info'          : ( _ ) => InfoScreen(),
       },
       theme: ThemeData(

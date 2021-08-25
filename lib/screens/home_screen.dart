@@ -1,5 +1,6 @@
 import 'package:duvit/screens/info_screen.dart';
 import 'package:duvit/screens/map_screen.dart';
+import 'package:duvit/screens/projects_screen.dart';
 import 'package:duvit/screens/screens.dart';
 import 'package:duvit/shared_prefs/user_preferences.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
       bottomNavigationBar: _crearBottomNavigationBar( context ),
       floatingActionButton: FloatingActionButton(
         elevation: 8.0,
-        child: new Icon(Icons.task),
+        child: new Icon(Icons.add),
         onPressed: (){}
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -54,12 +55,16 @@ class _HomeScreenState extends State<HomeScreen> {
               });
             },),
             SizedBox(width: 40),
-            IconButton(icon: Icon(Icons.assistant), color: currentIndex == 2 ? Theme.of(context).primaryColor : Colors.black, onPressed: () {
+            IconButton(
+              icon: Icon(Icons.checklist), 
+              color: currentIndex == 2 ? Theme.of(context).primaryColor : Colors.black, onPressed: () {
               setState(() {
                 currentIndex = 2;
               });
             },),
-            IconButton(icon: Icon(Icons.settings), color: currentIndex == 3 ? Theme.of(context).primaryColor : Colors.black, onPressed: () {
+            IconButton(
+              icon: Icon(Icons.topic_outlined), 
+              color: currentIndex == 3 ? Theme.of(context).primaryColor : Colors.black, onPressed: () {
               setState(() {
                 currentIndex = 3;
               });
@@ -77,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
       case 2:
         return TasksScreen();
       case 3:
-        return InfoScreen();
+        return ProjectsScreen();
 
       default:
         return MapScreen();
