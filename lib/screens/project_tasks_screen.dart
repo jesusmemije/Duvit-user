@@ -1,6 +1,5 @@
 import 'package:duvit/models/project_model.dart';
 import 'package:duvit/models/task_model.dart';
-import 'package:duvit/providers/projects_provider.dart';
 import 'package:duvit/providers/tasks_provider.dart';
 import 'package:duvit/shared_prefs/user_preferences.dart';
 import 'package:expansion_tile_card/expansion_tile_card.dart';
@@ -15,8 +14,6 @@ class ProjectTasksScreen extends StatefulWidget {
 
 class _ProjectTasksScreenState extends State<ProjectTasksScreen> {
   final tasksProvider = new TasksProvider();
-
-  final projectsProvider = new ProjectsProvider();
 
   final prefs = new PreferenciasUsuario();
 

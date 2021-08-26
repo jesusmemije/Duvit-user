@@ -4,6 +4,14 @@
 <dict>
 	<key>NSLocationWhereInUseUsageDescription</key>
 	<string>Duvit necesita usar tu ubicación</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>https</string>
+		<string>http</string>
+		<string>mailto</string>
+		<string>tel</string>
+		<string>sms</string>
+	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>

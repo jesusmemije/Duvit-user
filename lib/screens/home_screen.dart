@@ -48,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
             IconButton(icon: Icon(Icons.menu), onPressed: () {
               return globalKey.currentState!.openDrawer();
             }),
-            IconButton(icon: Icon(Icons.add_location_alt), color: currentIndex == 1 ? Theme.of(context).primaryColor : Colors.black, onPressed: () {
+            IconButton(icon: Icon(Icons.add_location_alt_outlined), color: currentIndex == 1 ? Theme.of(context).primaryColor : Colors.black, onPressed: () {
               setState(() {
                 currentIndex = 1;
               });
