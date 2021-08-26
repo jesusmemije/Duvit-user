@@ -1,4 +1,3 @@
-import 'package:duvit/screens/info_screen.dart';
 import 'package:duvit/screens/map_screen.dart';
 import 'package:duvit/screens/projects_screen.dart';
 import 'package:duvit/screens/screens.dart';

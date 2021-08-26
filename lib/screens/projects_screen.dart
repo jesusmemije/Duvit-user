@@ -16,19 +16,16 @@ class ProjectsScreen extends StatelessWidget {
     );
   }
 
-  PreferredSize _crearAppBar( BuildContext context) {
+  PreferredSize _crearAppBar( BuildContext context ) {
 
     return PreferredSize(
       preferredSize: Size.fromHeight(60.0),
       child: AppBar(
         centerTitle: true,
-        title: Padding(
-          padding: const EdgeInsets.only(top: 8.0),
-          child: Column(
-            children: [
-              Text( 'Proyectos', style: TextStyle(color: Colors.black)),
-            ],
-          ),
+        title: Column(
+          children: [
+            Text( 'Proyectos', style: TextStyle(color: Colors.black))
+          ],
         ),
         elevation: 2.0,
         backgroundColor: Colors.white,
@@ -51,7 +48,7 @@ class ProjectsScreen extends StatelessWidget {
               padding: EdgeInsets.only(top: 5.0, bottom: 5.0),
               child: ListView.builder(
                 itemCount: projects.length,
-                itemBuilder: (context, i) => _crearItemProject( projects[i] ),
+                itemBuilder: (context, i) => _crearItemProject( context, projects[i] ),
               ),
             );
           } else {
@@ -66,7 +63,7 @@ class ProjectsScreen extends StatelessWidget {
                       size: 40.0,
                     ),
                     SizedBox(height: 8.0),
-                    Text( 'Aún no está relacionado algún proyecto', textAlign: TextAlign.center),
+                    Text( 'Aún no está relacionado a algún proyecto', textAlign: TextAlign.center),
                   ],
                 ),
               ],
@@ -79,7 +76,7 @@ class ProjectsScreen extends StatelessWidget {
     );
   }
 
-  Widget _crearItemProject( ProjectListModel project ) {
+  Widget _crearItemProject( BuildContext context, ProjectListModel project ) {
 
     return Card(
       shape: RoundedRectangleBorder(
@@ -111,7 +108,7 @@ class ProjectsScreen extends StatelessWidget {
                   color: Colors.brown[900],
                 ),
                 onPressed: () {
-                  //   _onDeleteItemPressed(index);
+                  Navigator.pushNamed(context, '/project_tasks', arguments: project);
                 },
               ),
               IconButton(
@@ -121,7 +118,7 @@ class ProjectsScreen extends StatelessWidget {
                   color: Colors.brown[900],
                 ),
                 onPressed: () {
-                  //   _onDeleteItemPressed(index);
+                  Navigator.pushNamed(context, '/project_members', arguments: project);
                 },
               ),
             ],

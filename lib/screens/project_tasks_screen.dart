@@ -1,17 +1,24 @@
+import 'package:duvit/models/project_model.dart';
 import 'package:duvit/models/task_model.dart';
+import 'package:duvit/providers/projects_provider.dart';
 import 'package:duvit/providers/tasks_provider.dart';
 import 'package:duvit/shared_prefs/user_preferences.dart';
 import 'package:expansion_tile_card/expansion_tile_card.dart';
+import 'package:flutter/material.dart';
 import "package:flutter/cupertino.dart";
-import "package:flutter/material.dart";
 
-class TasksScreen extends StatefulWidget {
+class ProjectTasksScreen extends StatefulWidget {
+
   @override
-  _TasksScreenState createState() => _TasksScreenState();
+  _ProjectTasksScreenState createState() => _ProjectTasksScreenState();
 }
 
-class _TasksScreenState extends State<TasksScreen> {
+class _ProjectTasksScreenState extends State<ProjectTasksScreen> {
   final tasksProvider = new TasksProvider();
+
+  final projectsProvider = new ProjectsProvider();
+
+  final prefs = new PreferenciasUsuario();
 
   final ButtonStyle flatButtonStyle = TextButton.styleFrom(
     shape: const RoundedRectangleBorder(
@@ -19,23 +26,14 @@ class _TasksScreenState extends State<TasksScreen> {
     ),
   );
 
-  final prefs = new PreferenciasUsuario();
-
   @override
   Widget build(BuildContext context) {
+
+    final projectListModel = ModalRoute.of(context)!.settings.arguments as ProjectListModel;
+
     return Scaffold(
-      body: DefaultTabController(
-        length: 2,
-        child: Scaffold(
-          appBar: _crearAppBar(),
-          body: TabBarView(
-            children: [
-              _tapViewTasks( "get_all" ), 
-              _tapViewTasks( "get_by_start" )
-            ],
-          ),
-        ),
-      ),
+      appBar: _crearAppBar( context, projectListModel.nombreProyecto),
+      body:  _crearListado( projectListModel.idProyecto ),
     );
   }
 
@@ -49,35 +47,39 @@ class _TasksScreenState extends State<TasksScreen> {
     );
   }
 
-  PreferredSize _crearAppBar() {
+  PreferredSize _crearAppBar( BuildContext context, String nombreProyecto ) {
+
     return PreferredSize(
-      preferredSize: const Size.fromHeight(100),
+      preferredSize: Size.fromHeight(60.0),
       child: AppBar(
-          bottom: TabBar(
-            labelColor: Colors.black,
-            indicatorColor: Colors.purple,
-            tabs: [Tab(text: 'Tareas'), Tab(text: 'Comenzadas')],
-          ),
-          centerTitle: true,
-          title: Text('Planeación', style: TextStyle(color: Colors.black)),
-          elevation: 2.0,
-          backgroundColor: Colors.white,
-          actions: [
-            IconButton(
-              icon: Icon(Icons.history, color: Colors.black87),
-              tooltip: 'Historial de tareas',
-              onPressed: () {
-                Navigator.pushNamed(context, '/tasks_history');
-              },
-            ),
+        centerTitle: true,
+        title: Column(
+          children: [
+            Text( 'Tareas', style: TextStyle(color: Colors.black)),
+            Text( 'Proyecto • $nombreProyecto', style:  TextStyle( fontWeight : FontWeight.w400, fontSize : 12, letterSpacing : 0.2, color : Color(0xFF4A6572) )),
           ],
+        ),
+        elevation: 2.0,
+        backgroundColor: Colors.white,
+        actions: [
+          IconButton(
+            color: Colors.black87,
+            icon: Icon(
+              Icons.close,
+            ),
+            onPressed: (){
+              Navigator.pop(context);
+            },
+          ),
+        ],
       ),
     );
+
   }
 
-  Widget _tapViewTasks( String type) {
+  Widget _crearListado(int idProyecto) {
     return FutureBuilder(
-        future: tasksProvider.getTasks(prefs.idStaff, type),
+        future: tasksProvider.getTasksByIdProject(prefs.idStaff, idProyecto),
         builder:
             (BuildContext context, AsyncSnapshot<List<TaskModel>> snapshot) {
           if (snapshot.hasData) {
@@ -100,8 +102,8 @@ class _TasksScreenState extends State<TasksScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SizedBox(height: 8.0),
-                      Text( type == 'get_all' ? 'No cuenta con tareas pendientes' :  'Sin tareas comenzadas\nComienza a realizar alguna tarea', textAlign: TextAlign.center ),
-                      Icon(Icons.play_arrow_rounded, size: 40.0),
+                      Text( 'No cuenta con tareas \n relacionadas a este proyecto...', textAlign: TextAlign.center ),
+                      Icon(Icons.sentiment_very_dissatisfied, size: 40.0),
                     ],
                   ),
                 ],

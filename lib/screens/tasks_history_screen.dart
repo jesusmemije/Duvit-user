@@ -12,7 +12,7 @@ class TasksHistoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: _crearAppBar( context, prefs.name ),
+      appBar: _crearAppBar( context ),
       body:  _crearListado(),
     );
   }
@@ -20,7 +20,7 @@ class TasksHistoryScreen extends StatelessWidget {
   Widget _crearListado() {
 
     return FutureBuilder(
-      future: tasksProvider.getTasksEnd( prefs.idStaff ),
+      future: tasksProvider.getTasks(prefs.idStaff, 'get_by_end'),
       builder: (BuildContext context, AsyncSnapshot<List<TaskModel>> snapshot) {
 
         final tasks = snapshot.data;
@@ -134,34 +134,28 @@ class TasksHistoryScreen extends StatelessWidget {
     );
   }
 
-  PreferredSize _crearAppBar( BuildContext context, String nombreStaff ) {
+  PreferredSize _crearAppBar( BuildContext context ) {
 
     return PreferredSize(
       preferredSize: Size.fromHeight(60.0),
       child: AppBar(
         centerTitle: true,
-        title: Padding(
-          padding: const EdgeInsets.only(top: 8.0),
-          child: Column(
-            children: [
-              Text( 'Historial', style: TextStyle(color: Colors.black)),
-            ],
-          ),
+        title: Column(
+          children: [
+            Text( 'Historial', style: TextStyle(color: Colors.black))
+          ],
         ),
         elevation: 2.0,
         backgroundColor: Colors.white,
-        actions: <Widget>[
-          Padding(
-            padding: EdgeInsets.only(top: 8.0, right: 4.0),
-            child: IconButton(
-              color: Colors.black87,
-                icon: Icon(
-                  Icons.close,
-                ),
-                onPressed: (){
-                  Navigator.pop(context);
-                },
+        actions: [
+          IconButton(
+            color: Colors.black87,
+            icon: Icon(
+              Icons.close,
             ),
+            onPressed: (){
+              Navigator.pop(context);
+            },
           ),
         ],
       ),
